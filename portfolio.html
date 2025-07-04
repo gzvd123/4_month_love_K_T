@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Portfolio | Nguyễn Thị Thu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            color: #e2e8f0;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            background-color: #0f172a; /* slate-900 */
+        }
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(12, 18, 32, 0.95) 50%, rgba(15, 23, 42, 0.95) 100%),
+                        url('https://images.unsplash.com/photo-1527529482837-4698179dc6ce?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        /* Enhanced Particle System */
+        .particle-system {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: linear-gradient(45deg, #fbbf24, #f59e0b);
+            border-radius: 50%;
+            animation: particleFloat 15s infinite linear;
+            opacity: 0;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) translateX(50px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .bokeh-light {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(251, 191, 36, 0.6) 0%, rgba(245, 158, 11, 0.3) 40%, rgba(253, 230, 138, 0) 70%);
+            filter: blur(80px);
+            animation: float 25s infinite ease-in-out;
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0) scale(1) rotate(0deg);
+                opacity: 0.4;
+            }
+            25% {
+                transform: translateY(-8vh) translateX(8vw) scale(1.3) rotate(90deg);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateY(-5vh) translateX(5vw) scale(1.5) rotate(180deg);
+                opacity: 0.9;
+            }
+            75% {
+                transform: translateY(-10vh) translateX(-3vw) scale(1.2) rotate(270deg);
+                opacity: 0.6;
+            }
+        }
+        .bokeh-light.light-1 {
+            width: 35vw;
+            height: 35vw;
+            max-width: 400px;
+            max-height: 400px;
+            top: 5%;
+            left: 10%;
+            animation-duration: 25s;
+            animation-delay: -5s;
+        }
+        .bokeh-light.light-2 {
+            width: 45vw;
+            height: 45vw;
+            max-width: 500px;
+            max-height: 500px;
+            top: 50%;
+            left: 60%;
+            animation-duration: 30s;
+            animation-delay: -15s;
+        }
+        .bokeh-light.light-3 {
+            width: 25vw;
+            height: 25vw;
+            max-width: 300px;
+            max-height: 300px;
+            top: 70%;
+            left: 20%;
+            animation-duration: 22s;
+            animation-delay: -10s;
+        }
+        .bokeh-light.light-4 {
+            width: 40vw;
+            height: 40vw;
+            max-width: 450px;
+            max-height: 450px;
+            top: 20%;
+            left: 80%;
+            animation-duration: 28s;
+            animation-delay: 0s;
+        }
+        .glass-effect {
+            background: rgba(30, 41, 59, 0.5); /* slate-800 with opacity */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(129, 140, 248, 0.2); /* indigo-400 with opacity */
+            transition: all 0.3s ease;
+        }
+        .section-title {
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 700;
+            color: #a5b4fc; /* indigo-300 */
+        }
+        .card-hover-effect {
+            transition: all 0.3s ease-in-out;
+        }
+        .card-hover-effect:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(129, 140, 248, 0.1);
+            border-color: rgba(129, 140, 248, 0.5); /* indigo-400 */
+        }
+        .modal {
+            transition: opacity 0.3s ease;
+        }
+        .modal .modal-content {
+            transform: translateY(-50px) scale(0.95);
+            transition: transform 0.4s ease-out;
+        }
+        .modal.is-open .modal-content {
+            transform: translateY(0) scale(1);
+        }
+        .skill-bar-fill {
+            transition: width 1.5s ease-in-out;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .btn-primary {
+            background: linear-gradient(90deg, #6366f1, #818cf8); /* indigo-500 to indigo-400 */
+            color: #ffffff;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn-primary .btn-text {
+            transition: transform 0.3s ease;
+        }
+        .btn-primary .btn-icon {
+            position: absolute;
+            right: 1.25rem;
+            transform: translateX(200%);
+            transition: transform 0.3s ease;
+        }
+        .btn-primary:hover {
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+            transform: scale(1.05);
+        }
+        .btn-primary:hover .btn-text {
+            transform: translateX(-1rem);
+        }
+        .btn-primary:hover .btn-icon {
+            transform: translateX(0);
+        }
+        /* Add custom animations */
+        @keyframes fade-in-down {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-down {
+            animation: fade-in-down 0.8s ease-out forwards;
+        }
+        .animate-fade-in-up {
+            animation: fade-in-up 0.8s ease-out 0.4s forwards;
+            opacity: 0; /* Start hidden */
+        }
+        .timeline-dot-pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.7;
+            }
+        }
+        /* Slideshow container */
+        .slideshow-container {
+          max-width: 1000px;
+          position: relative;
+          margin: auto;
+          border-radius: 8px;
+          overflow: hidden;
+        }
+
+        /* Hide the images by default */
+        .mySlides {
+          display: none;
+        }
+        .mySlides img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            vertical-align: middle;
+        }
+
+        /* Next & previous buttons */
+        .prev, .next {
+          cursor: pointer;
+          position: absolute;
+          top: 50%;
+          width: auto;
+          margin-top: -22px;
+          padding: 16px;
+          color: white;
+          font-weight: bold;
+          font-size: 20px;
+          transition: 0.6s ease;
+          border-radius: 0 3px 3px 0;
+          user-select: none;
+          background-color: rgba(0,0,0,0.3);
+        }
+
+        /* Position the "next button" to the right */
+        .next {
+          right: 0;
+          border-radius: 3px 0 0 3px;
+        }
+
+        /* On hover, add a black background color with a little bit see-through */
+        .prev:hover, .next:hover {
+          background-color: rgba(0,0,0,0.8);
+        }
+
+        /* The dots/bullets/indicators */
+        .dots-container {
+            text-align: center;
+            padding: 10px 0;
+        }
+        .dot {
+          cursor: pointer;
+          height: 12px;
+          width: 12px;
+          margin: 0 4px;
+          background-color: #71717a; /* zinc-500 */
+          border-radius: 50%;
+          display: inline-block;
+          transition: background-color 0.6s ease;
+        }
+
+        .active, .dot:hover {
+          background-color: #a5b4fc; /* indigo-300 */
+        }
+
+        /* Fading animation */
+        .fade-anim {
+          animation-name: fade-anim;
+          animation-duration: 1.5s;
+        }
+
+        @keyframes fade-anim {
+          from {opacity: .4}
+          to {opacity: 1}
+        }
+
+        /* Particle System */
+        .particle {
+            position: absolute;
+            background: linear-gradient(45deg, #c7d2fe, #a5b4fc); /* Indigo shades */
+            border-radius: 50%;
+            animation-name: particle-float;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+            will-change: transform, opacity;
+        }
+        @keyframes particle-float {
+            0% {
+                transform: translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.8;
+            }
+            80% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-110vh) translateX(5vw) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Cursor Aura */
+        #cursor-aura {
+            position: fixed;
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, rgba(129, 140, 248, 0.2) 0%, rgba(129, 140, 248, 0) 60%);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: all 0.1s ease-out;
+            z-index: 9999;
+            will-change: transform;
+        }
+    </style>
+</head>
+<body class="antialiased hero-bg">
+
+    <!-- Wow Effects -->
+    <div id="cursor-aura"></div>
+    <div id="particle-system" class="fixed top-0 left-0 w-full h-full pointer-events-none z-0"></div>
+
+    <!-- Bokeh Lights -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div class="bokeh-light light-1"></div>
+        <div class="bokeh-light light-2"></div>
+        <div class="bokeh-light light-3"></div>
+        <div class="bokeh-light light-4"></div>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-white">Nguyễn Thị Thu</a>
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#about" class="text-slate-300 hover:text-white transition">Giới thiệu</a>
+                <a href="#portfolio" class="text-slate-300 hover:text-white transition">Portfolio</a>
+                <a href="#skills" class="text-slate-300 hover:text-white transition">Kỹ năng</a>
+                <a href="#contact" class="bg-indigo-400 text-white font-bold py-2 px-4 rounded-full hover:bg-indigo-500 transition">Liên hệ</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-white">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-900/90">
+            <a href="#about" class="block py-2 px-4 text-sm hover:bg-slate-700">Giới thiệu</a>
+            <a href="#portfolio" class="block py-2 px-4 text-sm hover:bg-slate-700">Portfolio</a>
+            <a href="#skills" class="block py-2 px-4 text-sm hover:bg-slate-700">Kỹ năng</a>
+            <a href="#contact" class="block py-2 px-4 text-sm hover:bg-slate-700">Liên hệ</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="h-screen flex items-center justify-center text-center">
+        <div class="px-4 relative z-10">
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-4 animate-fade-in-down">
+                Nguyễn Thị Thu
+            </h1>
+            <p class="text-xl md:text-2xl text-indigo-300 font-semibold mb-8 animate-fade-in-up">
+                Event Coordinator & Planner
+            </p>
+            <a href="#portfolio" class="btn-primary font-bold py-3 px-8 rounded-full text-lg">
+                <span class="btn-text">Xem Dự Án Của Tôi</span>
+                <span class="btn-icon"><i class="fas fa-arrow-right"></i></span>
+            </a>
+        </div>
+    </section>
+
+    <main class="container mx-auto px-6 py-16 md:py-24 relative z-10">
+
+        <!-- About Section -->
+        <section id="about" class="mb-24 fade-in">
+            <h2 class="section-title text-center mb-12">Giới thiệu</h2>
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/3 text-center">
+                    <img src="assets/images/profile.jpg" alt="Ảnh chân dung" class="rounded-full w-64 h-64 mx-auto border-4 border-indigo-400 shadow-lg object-cover">
+                </div>
+                <div class="md:w-2/3">
+                    <h3 class="text-3xl font-bold mb-4 text-white">Xin chào! Tôi là một người kiến tạo trải nghiệm.</h3>
+                    <p class="text-slate-300 leading-relaxed">
+                        Sinh viên năm 3 chuyên ngành Quản trị Sự kiện với đam mê mãnh liệt trong việc kiến tạo những trải nghiệm sự kiện độc đáo và đáng nhớ. Có kinh nghiệm thực tế trong việc hỗ trợ lập kế hoạch, điều phối và thực thi các sự kiện. Kỹ năng giao tiếp, giải quyết vấn đề và tổ chức xuất sắc, mong muốn được áp dụng và phát triển chuyên môn tại một môi trường năng động để trở thành một nhân viên tổ chức sự kiện chuyên nghiệp.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Achievements Section -->
+        <section id="achievements" class="mb-24 fade-in">
+            <div class="glass-effect rounded-lg p-8">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    <div>
+                        <h4 class="text-4xl font-bold text-indigo-300 mb-2">10+</h4>
+                        <p class="text-slate-400">Sự kiện đã tham gia</p>
+                    </div>
+                    <div>
+                        <h4 class="text-4xl font-bold text-indigo-300 mb-2">300+</h4>
+                        <p class="text-slate-400">Quy mô khách lớn nhất</p>
+                    </div>
+                    <div>
+                        <h4 class="text-4xl font-bold text-indigo-300 mb-2">5+</h4>
+                        <p class="text-slate-400">Dự án quản lý</p>
+                    </div>
+                    <div>
+                        <h4 class="text-4xl font-bold text-indigo-300 mb-2">95%</h4>
+                        <p class="text-slate-400">Phản hồi tích cực</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="mb-24 fade-in">
+            <h2 class="section-title text-center mb-12">Portfolio Sự Kiện</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="glass-effect rounded-lg p-6 card-hover-effect cursor-pointer" onclick="openModal('modal1')">
+                    <h3 class="text-xl font-bold text-white mb-2">LỄ KHÁNH THÀNH NHÀ MÁY ABC TECH</h3>
+                    <p class="text-indigo-300 font-semibold mb-4">Sự kiện Doanh nghiệp (Corporate Event)</p>
+                    <p class="text-sm text-slate-400">Hỗ trợ giám sát, điều phối và đón tiếp hơn 200 khách mời, đảm bảo sự kiện diễn ra chuyên nghiệp và thành công.</p>
+                </div>
+                <!-- Project 2 -->
+                <div class="glass-effect rounded-lg p-6 card-hover-effect cursor-pointer" onclick="openModal('modal2')">
+                    <h3 class="text-xl font-bold text-white mb-2">TIỆC TRI ÂN KHÁCH HÀNG "LUXURY NIGHT"</h3>
+                    <p class="text-indigo-300 font-semibold mb-4">Gala Dinner & Networking</p>
+                    <p class="text-sm text-slate-400">Tham gia xây dựng kịch bản, quản lý khách mời và truyền thông, giúp tăng 15% tương tác trên fanpage.</p>
+                </div>
+                <!-- Project 3 -->
+                <div class="glass-effect rounded-lg p-6 card-hover-effect cursor-pointer" onclick="openModal('modal3')">
+                    <h3 class="text-xl font-bold text-white mb-2">CHUỖI SỰ KIỆN KÍCH HOẠT THƯƠNG HIỆU</h3>
+                    <p class="text-indigo-300 font-semibold mb-4">Brand Activation</p>
+                    <p class="text-sm text-slate-400">Lên kế hoạch, lập ngân sách và quản lý đội ngũ 10 PG, vượt 20% mục tiêu về số lượng mẫu thử phát ra.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="mb-24 fade-in">
+            <h2 class="section-title text-center mb-12">Năng lực cốt lõi</h2>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-bold text-white mb-6 text-center md:text-left">Kỹ năng chuyên môn</h3>
+                    <div class="flex flex-wrap justify-center md:justify-start gap-3">
+                        <span class="bg-slate-800 border border-slate-700 text-slate-300 px-4 py-2 rounded-full font-medium hover:border-indigo-400 hover:scale-105 transition-all">Lập kế hoạch Sự kiện</span>
+                        <span class="bg-slate-800 border border-slate-700 text-slate-300 px-4 py-2 rounded-full font-medium hover:border-indigo-400 hover:scale-105 transition-all">Quản lý Ngân sách</span>
+                        <span class="bg-slate-800 border border-slate-700 text-slate-300 px-4 py-2 rounded-full font-medium hover:border-indigo-400 hover:scale-105 transition-all">Điều phối Hậu cần</span>
+                        <span class="bg-slate-800 border border-slate-700 text-slate-300 px-4 py-2 rounded-full font-medium hover:border-indigo-400 hover:scale-105 transition-all">Sáng tạo Concept</span>
+                        <span class="bg-slate-800 border border-slate-700 text-slate-300 px-4 py-2 rounded-full font-medium hover:border-indigo-400 hover:scale-105 transition-all">Quản lý Nhà cung cấp</span>
+                        <span class="bg-slate-800 border border-slate-700 text-slate-300 px-4 py-2 rounded-full font-medium hover:border-indigo-400 hover:scale-105 transition-all">Giao tiếp & Đàm phán</span>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold text-white mb-6 text-center md:text-left">Công cụ & Phần mềm</h3>
+                     <div class="flex flex-wrap justify-center md:justify-start gap-3">
+                        <span class="bg-slate-800 border border-slate-700 text-slate-300 px-4 py-2 rounded-full font-medium hover:border-indigo-400 hover:scale-105 transition-all">MS Office Suite</span>
+                        <span class="bg-slate-800 border border-slate-700 text-slate-300 px-4 py-2 rounded-full font-medium hover:border-indigo-400 hover:scale-105 transition-all">Trello / Asana</span>
+                        <span class="bg-slate-800 border border-slate-700 text-slate-300 px-4 py-2 rounded-full font-medium hover:border-indigo-400 hover:scale-105 transition-all">Canva</span>
+                        <span class="bg-slate-800 border border-slate-700 text-slate-300 px-4 py-2 rounded-full font-medium hover:border-indigo-400 hover:scale-105 transition-all">Google Forms</span>
+                        <span class="bg-slate-800 border border-slate-700 text-slate-300 px-4 py-2 rounded-full font-medium hover:border-indigo-400 hover:scale-105 transition-all">Social Media</span>
+                        <span class="bg-slate-800 border border-slate-700 text-slate-300 px-4 py-2 rounded-full font-medium hover:border-indigo-400 hover:scale-105 transition-all">WordPress (Cơ bản)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Education & Activities -->
+        <section id="education" class="mb-24 fade-in">
+            <h2 class="section-title text-center mb-12">Học vấn & Hoạt động</h2>
+            <div class="border-l-2 border-indigo-400 pl-8 relative">
+                 <!-- Timeline Item 1 -->
+                <div class="mb-12 relative">
+                    <div class="absolute -left-[42px] top-1 w-5 h-5 bg-indigo-400 rounded-full border-4 border-slate-800 timeline-dot-pulse"></div>
+                    <p class="text-indigo-300 font-semibold">[Năm bắt đầu] – [Năm tốt nghiệp dự kiến]</p>
+                    <h3 class="text-xl font-bold text-white mt-1">Trường Đại học Khoa học Xã hội và Nhân văn</h3>
+                    <p class="text-slate-400">Chuyên ngành: Quản trị Sự kiện | GPA: [Điểm GPA]/4.0</p>
+                </div>
+                 <!-- Timeline Item 2 -->
+                <div class="mb-12 relative">
+                    <div class="absolute -left-[42px] top-1 w-5 h-5 bg-indigo-400 rounded-full border-4 border-slate-800 timeline-dot-pulse"></div>
+                    <p class="text-indigo-300 font-semibold">[Thời gian]</p>
+                    <h3 class="text-xl font-bold text-white mt-1">[Chức vụ], CLB [Tên Câu lạc bộ]</h3>
+                    <p class="text-slate-400">Tổ chức thành công sự kiện [Tên sự kiện], thu hút [Số lượng] sinh viên tham gia.</p>
+                </div>
+                 <!-- Timeline Item 3 -->
+                <div class="relative">
+                    <div class="absolute -left-[42px] top-1 w-5 h-5 bg-indigo-400 rounded-full border-4 border-slate-800 timeline-dot-pulse"></div>
+                    <p class="text-indigo-300 font-semibold">[Năm]</p>
+                    <h3 class="text-xl font-bold text-white mt-1">Giải thưởng [Tên giải thưởng]</h3>
+                    <p class="text-slate-400">Đạt giải [Nhất/Nhì/Ba] trong cuộc thi [Tên cuộc thi].</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Contact Section -->
+    <footer id="contact" class="bg-slate-900/50 py-16 relative z-10">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="section-title mb-4">Liên hệ</h2>
+            <p class="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
+                Tôi luôn sẵn sàng cho những cơ hội mới và các dự án thú vị. <br>Hãy kết nối với tôi!
+            </p>
+            <div class="flex justify-center space-x-8 text-3xl">
+                <a href="mailto:nguyen.thi.thu@email.com" class="text-slate-400 hover:text-indigo-400 transition"><i class="fas fa-envelope"></i></a>
+                <a href="https://www.linkedin.com/in/nguyen-thi-thu" target="_blank" class="text-slate-400 hover:text-indigo-400 transition"><i class="fab fa-linkedin"></i></a>
+                <a href="tel:+84123456789" class="text-slate-400 hover:text-indigo-400 transition"><i class="fas fa-phone"></i></a>
+            </div>
+             <p class="text-slate-500 mt-12 text-sm">© 2024 Nguyễn Thị Thu. Thiết kế bởi Gemini.</p>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <!-- Modal 1 -->
+    <div id="modal1" class="modal fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none">
+        <div class="modal-content glass-effect rounded-lg p-8 max-w-5xl w-full relative">
+            <button onclick="closeModal('modal1')" class="absolute top-4 right-6 text-slate-400 hover:text-white text-3xl z-10">&times;</button>
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Image Carousel -->
+                <div>
+                    <div class="slideshow-container" data-modal-id="modal1">
+                      <!-- Full-width images with number and caption text -->
+                      <div class="mySlides fade-anim">
+                        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=2070&auto=format&fit=crop">
+                      </div>
+                      <div class="mySlides fade-anim">
+                        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2232&auto=format&fit=crop">
+                      </div>
+                      <div class="mySlides fade-anim">
+                        <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=2070&auto=format&fit=crop">
+                      </div>
+                      <!-- Next and previous buttons -->
+                      <a class="prev" onclick="plusSlides(-1, 'modal1')">&#10094;</a>
+                      <a class="next" onclick="plusSlides(1, 'modal1')">&#10095;</a>
+                    </div>
+                    <div class="dots-container">
+                      <span class="dot" onclick="currentSlide(1, 'modal1')"></span>
+                      <span class="dot" onclick="currentSlide(2, 'modal1')"></span>
+                      <span class="dot" onclick="currentSlide(3, 'modal1')"></span>
+                    </div>
+                </div>
+                <!-- Project Details -->
+                <div>
+                    <h3 class="text-2xl font-bold text-white mb-2">LỄ KHÁNH THÀNH NHÀ MÁY ABC TECH</h3>
+                    <p class="text-indigo-300 font-semibold mb-6">Sự kiện Doanh nghiệp (Corporate Event)</p>
+                    <ul class="space-y-4 text-slate-300">
+                        <li><strong>Khách hàng:</strong> Công ty Điện tử tại KCN Yên Phong, Bắc Ninh</li>
+                        <li><strong>Quy mô:</strong> 300 khách (Ban lãnh đạo, đối tác, nhân viên)</li>
+                        <li><strong>Vai trò:</strong> Tình nguyện viên/Thực tập sinh Điều phối Sự kiện</li>
+                        <li><strong>Nhiệm vụ & Kết quả:</strong>
+                            <ul class="list-disc pl-5 mt-2 space-y-2 text-slate-400">
+                                <li>Hỗ trợ giám sát việc lắp đặt sân khấu, âm thanh, ánh sáng, đảm bảo đúng theo sơ đồ kỹ thuật.</li>
+                                <li>Phụ trách khu vực check-in, đón tiếp và hướng dẫn hơn 200 khách mời, đảm bảo quy trình diễn ra trôi chảy, chuyên nghiệp.</li>
+                                <li>Điều phối hoạt động của 5 PG, phân công nhiệm vụ và xử lý các tình huống phát sinh tại chỗ.</li>
+                                <li><strong>Thành tựu:</strong> Góp phần vào thành công của sự kiện, nhận được phản hồi tích cực từ khách hàng về sự chu đáo và chuyên nghiệp trong khâu tổ chức.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal 2 -->
+    <div id="modal2" class="modal fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none">
+        <div class="modal-content glass-effect rounded-lg p-8 max-w-5xl w-full relative">
+            <button onclick="closeModal('modal2')" class="absolute top-4 right-6 text-slate-400 hover:text-white text-3xl z-10">&times;</button>
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Image Carousel -->
+                <div>
+                    <div class="slideshow-container" data-modal-id="modal2">
+                      <div class="mySlides fade-anim"><img src="https://images.unsplash.com/photo-1511795409834-ef04bbd51622?q=80&w=2070&auto=format&fit=crop"></div>
+                      <div class="mySlides fade-anim"><img src="https://images.unsplash.com/photo-1531058020387-3be344556be6?q=80&w=2070&auto=format&fit=crop"></div>
+                      <a class="prev" onclick="plusSlides(-1, 'modal2')">&#10094;</a>
+                      <a class="next" onclick="plusSlides(1, 'modal2')">&#10095;</a>
+                    </div>
+                    <div class="dots-container">
+                      <span class="dot" onclick="currentSlide(1, 'modal2')"></span>
+                      <span class="dot" onclick="currentSlide(2, 'modal2')"></span>
+                    </div>
+                </div>
+                <!-- Project Details -->
+                <div>
+                    <h3 class="text-2xl font-bold text-white mb-2">TIỆC TRI ÂN KHÁCH HÀNG "LUXURY NIGHT"</h3>
+                    <p class="text-indigo-300 font-semibold mb-6">Gala Dinner & Networking</p>
+                    <ul class="space-y-4 text-slate-300">
+                        <li><strong>Khách hàng:</strong> Trung tâm Tiệc cưới & Sự kiện Uri Palace</li>
+                        <li><strong>Quy mô:</strong> 150 khách hàng VIP</li>
+                        <li><strong>Vai trò:</strong> Thực tập sinh Kinh doanh & Marketing</li>
+                        <li><strong>Nhiệm vụ & Kết quả:</strong>
+                            <ul class="list-disc pl-5 mt-2 space-y-2 text-slate-400">
+                                <li>Tham gia xây dựng kịch bản chương trình chi tiết (timeline, kịch bản MC, tiết mục biểu diễn).</li>
+                                <li>Thiết kế và gửi email mời, quản lý danh sách khách mời xác nhận tham dự (RSVP) qua Google Forms.</li>
+                                <li>Hỗ trợ quản lý fanpage, viết bài và thiết kế ấn phẩm truyền thông cơ bản (banner, standee) cho sự kiện trên Canva.</li>
+                                <li><strong>Thành tựu:</strong> Tỷ lệ khách mời xác nhận tham dự đạt 95%. Tăng 15% tương tác trên fanpage trong tuần diễn ra sự kiện.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal 3 -->
+    <div id="modal3" class="modal fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none">
+        <div class="modal-content glass-effect rounded-lg p-8 max-w-5xl w-full relative">
+            <button onclick="closeModal('modal3')" class="absolute top-4 right-6 text-slate-400 hover:text-white text-3xl z-10">&times;</button>
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Image Carousel -->
+                <div>
+                    <div class="slideshow-container" data-modal-id="modal3">
+                      <div class="mySlides fade-anim"><img src="https://images.unsplash.com/photo-1587832888354-186e23246536?q=80&w=2071&auto=format&fit=crop"></div>
+                      <div class="mySlides fade-anim"><img src="https://images.unsplash.com/photo-1607956992578-021b9b5f0a1c?q=80&w=2107&auto=format&fit=crop"></div>
+                      <a class="prev" onclick="plusSlides(-1, 'modal3')">&#10094;</a>
+                      <a class="next" onclick="plusSlides(1, 'modal3')">&#10095;</a>
+                    </div>
+                     <div class="dots-container">
+                      <span class="dot" onclick="currentSlide(1, 'modal3')"></span>
+                      <span class="dot" onclick="currentSlide(2, 'modal3')"></span>
+                    </div>
+                </div>
+                <!-- Project Details -->
+                <div>
+                    <h3 class="text-2xl font-bold text-white mb-2">CHUỖI SỰ KIỆN KÍCH HOẠT THƯƠNG HIỆU</h3>
+                    <p class="text-indigo-300 font-semibold mb-6">Brand Activation</p>
+                    <ul class="space-y-4 text-slate-300">
+                        <li><strong>Khách hàng:</strong> Nhãn hàng Tiêu dùng nhanh</li>
+                        <li><strong>Quy mô:</strong> Nhiều địa điểm tại TP. Bắc Giang</li>
+                        <li><strong>Vai trò:</strong> Trưởng nhóm (Hoạt động CLB/Dự án sinh viên)</li>
+                        <li><strong>Nhiệm vụ & Kết quả:</strong>
+                            <ul class="list-disc pl-5 mt-2 space-y-2 text-slate-400">
+                                <li>Lên kế hoạch và lập ngân sách chi tiết cho chuỗi 3 sự kiện nhỏ.</li>
+                                <li>Tuyển chọn và đào tạo đội ngũ 10 PG, PB.</li>
+                                <li>Làm việc trực tiếp với quản lý các siêu thị để sắp xếp địa điểm và hậu cần.</li>
+                                <li><strong>Thành tựu:</strong> Vượt 20% mục tiêu về số lượng mẫu thử được phát ra. Thu thập thành công hơn 500 dữ liệu khách hàng tiềm năng.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Navigation Bar Logic ---
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('bg-slate-900/80', 'shadow-lg', 'backdrop-blur-sm');
+            } else {
+                header.classList.remove('bg-slate-900/80', 'shadow-lg', 'backdrop-blur-sm');
+            }
+        });
+        
+        // --- Mobile Menu Logic ---
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // --- Modal Logic ---
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.add('is-open');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = 'hidden';
+            // Initialize slideshow for this modal
+            currentSlide(1, modalId);
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('is-open');
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('pointer-events-none');
+                document.body.style.overflow = 'auto';
+            }, 400);
+        }
+
+        // Close modal on escape key press
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal').forEach(modal => {
+                    if (!modal.classList.contains('pointer-events-none')) {
+                        closeModal(modal.id);
+                    }
+                });
+            }
+        });
+
+        // Close modal on background click
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                closeModal(e.target.id);
+            }
+        });
+
+        // --- Slideshow Logic ---
+        let slideIndexes = {};
+
+        function plusSlides(n, modalId) {
+          showSlides(slideIndexes[modalId] += n, modalId);
+        }
+
+        function currentSlide(n, modalId) {
+          showSlides(slideIndexes[modalId] = n, modalId);
+        }
+
+        function showSlides(n, modalId) {
+          let i;
+          let modal = document.getElementById(modalId);
+          let slides = modal.getElementsByClassName("mySlides");
+          let dots = modal.getElementsByClassName("dot");
+          if (n > slides.length) {slideIndexes[modalId] = 1}
+          if (n < 1) {slideIndexes[modalId] = slides.length}
+          for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+          }
+          for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+          }
+          slides[slideIndexes[modalId]-1].style.display = "block";
+          dots[slideIndexes[modalId]-1].className += " active";
+        }
+
+        // --- Cursor Aura Logic ---
+        const aura = document.getElementById('cursor-aura');
+        if (aura) {
+            window.addEventListener('mousemove', (e) => {
+                aura.style.left = e.clientX + 'px';
+                aura.style.top = e.clientY + 'px';
+            });
+        }
+
+        // --- Dynamic Particle System ---
+        const particleContainer = document.getElementById('particle-system');
+        if (particleContainer) {
+            const particleCount = 40; // Increased for a more immersive feel
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Start particles at the bottom, scattered across the width
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.top = '100vh'; 
+
+                // Randomize animation properties for a natural, non-uniform look
+                const duration = Math.random() * 15 + 10; // 10-25 seconds
+                particle.style.animationDuration = `${duration}s`;
+                // Negative delay makes animations start at different points, so the screen is populated from the start
+                particle.style.animationDelay = `-${Math.random() * duration}s`; 
+                
+                const size = Math.random() * 3.5 + 1.5; // size from 1.5px to 5px
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                particleContainer.appendChild(particle);
+            }
+        }
+
+        // --- Fade-in on Scroll Logic ---
+        const faders = document.querySelectorAll('.fade-in');
+        
+        const appearOptions = {
+            threshold: 0.2,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                } else {
+                    entry.target.classList.add('visible');
+                    appearOnScroll.unobserve(entry.target);
+                }
+            });
+        }, appearOptions);
+
+        faders.forEach(fader => {
+            appearOnScroll.observe(fader);
+        });
+
+    </script>
+</body>
+</html>
